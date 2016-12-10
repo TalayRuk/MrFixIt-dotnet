@@ -50,10 +50,10 @@ namespace MrFixIt.Controllers
             return RedirectToAction("Index");
         }
         //assign to specific user! 
-        public IActionResult Claim(int id)
+        public IActionResult DisplayJob(int id)
         {
-            var Claim = db.Jobs.FirstOrDefault(items => items.JobId == id);
-            return View(Claim);
+            var DisplayJob = db.Jobs.FirstOrDefault(items => items.JobId == id);
+            return Json(DisplayJob);
         }
 
         [HttpPost]
@@ -63,7 +63,7 @@ namespace MrFixIt.Controllers
             db.Entry(job).State = EntityState.Modified;
             db.SaveChanges();
             //return RedirectToAction("Index");
-            return Json(Claim)
+            return Content("You have claim this job!", "text/plain");
         }
     }
 }
