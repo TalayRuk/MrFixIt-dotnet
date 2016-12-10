@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MrFixIt.Controllers
 {
+    //AboutController is extended Controller Constructor
     public class AboutController : Controller
     {
         // GET: /<controller>/
