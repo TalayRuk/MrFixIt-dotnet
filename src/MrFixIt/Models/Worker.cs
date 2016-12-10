@@ -22,7 +22,7 @@ namespace MrFixIt.Models
         //This is one-to-many relationship, One worker can have many jobs
         public virtual ICollection<Job> Jobs { get; set; }
 
-        //Worker Object can be deleted since it's not being use anywhere
+        //Worker constructor needed for Claiming a job Ajaxcall
         //public Worker()
         //{
            // Avaliable = true;
