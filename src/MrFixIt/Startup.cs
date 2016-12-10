@@ -57,12 +57,12 @@ namespace MrFixIt
             {
                 app.UseDeveloperExceptionPage();
             }
-            //tell our app to use Identity framework
+            //tell our app to use Identity framework **Need to b b/4 app.UseMvc(), or users won't be able to log in correctly & the app will give you a white screen
             app.UseIdentity();
             //tell the app to use MVC framework
             app.UseMvc(routes =>
             {
-                //this is default routing: tells our app to use url: localhost62483/Account/(any parameter will be passed as id and id is optional)
+                //this is default routing: tells our app to use url: localhost62483/Account/index view/(any parameter will be passed as id and id is optional)
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Account}/{action=Index}/{id?}");

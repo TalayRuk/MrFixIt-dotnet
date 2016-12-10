@@ -10,11 +10,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MrFixIt.Controllers
 {
+    //create db as new MrFixItContext() Constructor
     public class JobsController : Controller
     {
         private MrFixItContext db = new MrFixItContext();
 
         // GET: /<controller>/
+        //if sign in show list of jobs (that can be claimed) else take to Views/Jobs/Public
         public IActionResult Index()
         {
             if (User.Identity.IsAuthenticated)
@@ -47,7 +49,7 @@ namespace MrFixIt.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-
+        //assign to specific user! 
         public IActionResult Claim(int id)
         {
             var thisItem = db.Jobs.FirstOrDefault(items => items.JobId == id);

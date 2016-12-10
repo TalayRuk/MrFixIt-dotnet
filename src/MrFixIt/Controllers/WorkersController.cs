@@ -14,15 +14,19 @@ namespace MrFixIt.Controllers
     {
         private MrFixItContext db = new MrFixItContext();
         // GET: /<controller>/
+
+        //show job of the Login user has claimed
         public IActionResult Index()
         {
             var thisWorker = db.Workers.Include(i =>i.Jobs).FirstOrDefault(i => i.UserName == User.Identity.Name);
+            
             if (thisWorker != null)
             {
                 return View(thisWorker);
             }
             else
             {
+                //return to create worker or add worker
                 return RedirectToAction("Create");
             }
         }
