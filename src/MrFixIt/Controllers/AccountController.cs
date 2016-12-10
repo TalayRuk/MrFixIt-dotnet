@@ -94,7 +94,7 @@ namespace MrFixIt.Controllers
         }
 
         //HttpPost will be better option b/c Get is less secure compared to Post b/c data sent is part of the URL. So the data will be saved in the broser history & server logs in plaintext
-        [HttpPost]
+        [HttpGet]
         public async Task<IActionResult> LogOff()
         {
             await _signInManager.SignOutAsync();
