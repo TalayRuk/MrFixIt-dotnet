@@ -72,9 +72,9 @@ namespace MrFixIt
             //await tells the compiler that we'll need to run error.response.writeasync
             //App.Run() is like an Http handler
             //Note** Instead of app.Run(async (error) rewrite by replacing error w/context (conventional)
-            app.Run(async (error) =>
+            app.Run(async (context) =>
             {
-                await error.Response.WriteAsync("You should not see this message. An error has occured.");
+                await context.Response.WriteAsync("Error: You should not see this message. An error has occured.");
             });
         }
     }
