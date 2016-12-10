@@ -1,19 +1,73 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
-@model MrFixIt.Models.Job
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Job - Claim</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script type="text/javascript">
+    @model MrFixIt.Models.Job
+    @*@using MrFixIt.Models.Job*@
 
-<h2>Would you like to do this job?</h2>
-<hr />
-@using (Html.BeginForm())
-{
-    @Html.HiddenFor(model => model.JobId)
-    @Html.HiddenFor(model => model.Title)
-    @Html.HiddenFor(model => model.Description)
+        $(document).ready(function () {
 
-    <h4>@Model.Title</h4>
-    <input type="submit" value="Claim This Job" />
-}
-<p>@Html.ActionLink("Back to list", "Index")</p>
+            $('.display-job').click(function () {
+                $.ajax({
+                    url: '@Url.Action("DisplayJob")',
+                    type: 'GET',
+                    dataType: 'json',
+                    //Do I need contnentType
+                    contentType: 'application/json',
+                    success: function (result) {
+                        var resultString = 'Id:' + result.id + '<br>Title: ' + result.title + '<br>Description: ' + result.description;
+                        $('#resultDisplay-job').html(resultString);
+
+                    }
+                });
+            });
+
+            $('.claim').submit(function () {
+                event.preventDefault();
+                $.ajax({
+                    url: '@Url.Action("Claim")',
+                    type: 'POST',
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    success: function (result) {
+                        var resultMsg = 'You have claim this job! <br> Id: ' + result.id + '<br>Title: ' + result.title + '<br>Description: ' + result.description;
+                        $('#resultClaim').html(resultMsg);
+                    }
+                });
+            });
+
+        });
+    </script>
+</head>
+<body>
+    <br />
+    <h2>Show Job</h2>
+    <form action="DisplayJob" class="display-job">
+        <button type="submit">Show Job</button>
+    </form>
+    <div id="resultJob"></div>
+
+    <h2>Would you like to do this job?</h2>
+    <hr />
+
+    @if (User.Identity.IsAuthenticated)
+    {
+        <div class="container">
+
+            <form action="Claim" class="claim">
+
+                <input type="hidden" name="id" />
+                <input type="hidden" name="description" />
+                <h4>@Model.Title</h4>
+                <button type="submit">Claim this Job</button>
+            </form>
+            <div id="resultClaim"></div>
+        </div>
+        <br />
+        <p>@Html.ActionLink("Back to list", "Index")</p>
+
+    }
+</body>
+</html>
