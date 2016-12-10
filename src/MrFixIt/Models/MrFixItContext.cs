@@ -11,11 +11,11 @@ namespace MrFixIt.Models
         {
         }
         //Each DbSet to set a table in database. When using Migration we don't actually need public virtual DbSet(for when we create database first)
-        public virtual DbSet<Job> Jobs { get; set; }
+        public DbSet<Job> Jobs { get; set; }
 
-        public virtual DbSet<Worker> Workers { get; set; }
+        public DbSet<Worker> Workers { get; set; }
 
-        //**may not need the override since there's already a DbContextOptions below to interact with database using connection string in startup file and appsettings.json
+        //**need the override 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
             options.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=MrFixIt;integrated security=True");
