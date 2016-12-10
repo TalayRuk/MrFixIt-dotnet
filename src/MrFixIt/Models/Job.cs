@@ -15,8 +15,8 @@ namespace MrFixIt.Models
         public bool Completed { get; set; }
         public bool Pending { get; set; }
         public bool Active { get; set; }
-        //Need to add WorkerId Column, to set the worker to jobs
-        public int WorkerId { get; set; }
+        //Need to add WorkerId Column, to set the worker to jobs join table then run migration and database update
+        //public int WorkerId { get; set; }
         //This is one-to-many relatioship, where this worker can have many jobs, and a job has one worker. 
         public virtual Worker Worker { get; set; }
     }
