@@ -19,5 +19,18 @@ namespace MrFixIt.Models
         //public int WorkerId { get; set; }
         //This is one-to-many relatioship, where this worker can have many jobs, and a job has one worker. 
         public virtual Worker Worker { get; set; }
+
+        //set up job constructor
+        public Job(string title, string description, bool completed, bool pending, bool active, int id = 0)
+        {
+            Title = title;
+            Description = description;
+            Completed = completed;
+            Pending = pending;
+            Active = active;
+            JobId = id;
+        }
+
+        public Job() { }
     }
 }
