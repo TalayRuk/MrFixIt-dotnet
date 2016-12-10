@@ -21,7 +21,9 @@ namespace MrFixIt.Controllers
             {
 
             return View(db.Jobs.Include(i => i.Worker).ToList());
-            }else
+            }
+            //move else down
+            else
             {
                 return RedirectToAction("Public");
             }
@@ -29,6 +31,7 @@ namespace MrFixIt.Controllers
 
         public IActionResult Public()
         {
+            //error here 
             return View(db.Jobs.Include(i => i.Worker).ToList());
         }
 
