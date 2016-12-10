@@ -178,6 +178,7 @@ namespace MrFixIt.Migrations
                 },
                 constraints: table =>
                 {
+                    //create joint table w/workerId but missing this in job model
                     table.PrimaryKey("PK_Jobs", x => x.JobId);
                     table.ForeignKey(
                         name: "FK_Jobs_Workers_WorkerId",
