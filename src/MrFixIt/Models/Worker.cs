@@ -16,15 +16,17 @@ namespace MrFixIt.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public bool Avaliable { get; set; }
-        public string UserName { get; set; }
         //this comes from Identity.User
-        //One worker to manny Jobs relationship
+        public string UserName { get; set; }
+        
+        //This is one-to-many relationship, One worker can have many jobs
         public virtual ICollection<Job> Jobs { get; set; }
 
-        public Worker()
-        {
-            Avaliable = true;
-        }
+        //Worker Object can be deleted since it's not being use anywhere
+        //public Worker()
+        //{
+           // Avaliable = true;
+        //}
 
     }
 }

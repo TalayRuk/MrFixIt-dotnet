@@ -5,6 +5,7 @@ namespace MrFixIt.Models
 {
     public class MrFixItContext : IdentityDbContext<ApplicationUser>
     {
+        //setting up MrFixItContext Constructor for Controller to references
         public MrFixItContext()
         {
         }
