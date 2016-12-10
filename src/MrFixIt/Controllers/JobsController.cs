@@ -36,7 +36,7 @@ namespace MrFixIt.Controllers
             //error here? since it's public shouldn't it show just a list of job but doesn't show worker .. need to delete create job from the view page 
             return View(db.Jobs.Include(i => i.Worker).ToList());
         }
-
+        
         public IActionResult Create()
         {
             return View();
@@ -52,8 +52,8 @@ namespace MrFixIt.Controllers
         //assign to specific user! 
         public IActionResult Claim(int id)
         {
-            var thisItem = db.Jobs.FirstOrDefault(items => items.JobId == id);
-            return View(thisItem);
+            var Claim = db.Jobs.FirstOrDefault(items => items.JobId == id);
+            return View(Claim);
         }
 
         [HttpPost]
@@ -62,7 +62,8 @@ namespace MrFixIt.Controllers
             job.Worker = db.Workers.FirstOrDefault(i => i.UserName == User.Identity.Name);
             db.Entry(job).State = EntityState.Modified;
             db.SaveChanges();
-            return RedirectToAction("Index");
+            //return RedirectToAction("Index");
+            return Json(Claim)
         }
     }
 }

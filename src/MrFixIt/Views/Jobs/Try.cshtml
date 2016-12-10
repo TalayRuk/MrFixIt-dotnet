@@ -7,36 +7,45 @@
     <title>Job - Claim</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     <script type="text/javascript">
-        $(document).ready(function () {
-            $.ajax({
-                type: 'POST'
+    @model IEnumerable<MrFixIt.Models.Job>
+    @*@using MrFixIt.Models.Job*@
 
-            })
-            once clicked on claim this job = add job to worker 
-            var addWorkerToJob = new Job 
-        })
+        $(document).ready(function () {
+            $('.new-job').submit(function (event) {
+                event.preventDefault();
+                $.ajax({
+                    url: '@Url.Action("NewJob")',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: $(this).serialize(),
+                    success: function(result) {
+                        var resultAddNewJob = 'You\'ve added a ne job to the database!<br>JobId; ' + result.id + '<br>Title: ' + result.title +  '<br>Description: ' + result.description 
+                        $('#resultAddJob').html(resultAddNewJob)
+                    
+                    }            
+                });            
+            });
+        });
     </script>
 </head>
 <body>
-    claim this job
-    <h2>Using JSON to display a claim </h2>
-    <h4 class="hello-ajax">Hello AJAX</h4>
-    <div id="result1"></div>
+    <h1>See Your Job list</h1>
+    @if (User.Identity.IsAuthenticated)
+    {
+        <div class="AddJob">
+            <h2>Add job using Post request</h2>
+            <form action="NewJob" class="new-job">
+                <label for="title">Title: </label>
+                <input type="text" name="title" />
+                <label for="description">Description: </label>
+                <input type="text" name="description" />
+                <button type="submit">Add Job</button>
+            </form>
+            <div id="resultAddJob"></div>
+        </div>
+
+    }
 
 </body>
 </html>
 
-@model MrFixIt.Models.Job
-
-<h2>Would you like to do this job?</h2>
-<hr />
-@using (Html.BeginForm())
-{
-    @Html.HiddenFor(model => model.JobId)
-    @Html.HiddenFor(model => model.Title)
-    @Html.HiddenFor(model => model.Description)
-
-    <h4>@Model.Title</h4>
-    <input type="submit" value="Claim This Job" />
-}
-<p>@Html.ActionLink("Back to list", "Index")</p>
