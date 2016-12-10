@@ -33,7 +33,7 @@ namespace MrFixIt.Controllers
 
         public IActionResult Public()
         {
-            //error here 
+            //error here? since it's public shouldn't it show just a list of job but doesn't show worker .. need to delete create job from the view page 
             return View(db.Jobs.Include(i => i.Worker).ToList());
         }
 
