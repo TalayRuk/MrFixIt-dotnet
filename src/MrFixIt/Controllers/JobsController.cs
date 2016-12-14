@@ -30,6 +30,15 @@ namespace MrFixIt.Controllers
                 return RedirectToAction("Public");
             }
         }
+        [HttpPost]
+        public IActionResult Index(Job job)
+        {
+            job.Worker = db.Workers.FirstOrDefault(i => i.UserName == User.Identity.Name);
+            db.Entry(job).State = EntityState.Modified;
+            db.SaveChanges();
+            //return RedirectToAction("Index");
+            return Content("You have claim this job!", "text/plain");
+        }
 
         public IActionResult Public()
         {
@@ -56,14 +65,6 @@ namespace MrFixIt.Controllers
             return Json(DisplayJob);
         }
 
-        [HttpPost]
-        public IActionResult Claim(Job job)
-        {
-            job.Worker = db.Workers.FirstOrDefault(i => i.UserName == User.Identity.Name);
-            db.Entry(job).State = EntityState.Modified;
-            db.SaveChanges();
-            //return RedirectToAction("Index");
-            return Content("You have claim this job!", "text/plain");
-        }
+        
     }
 }

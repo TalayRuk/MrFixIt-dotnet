@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MrFixIt.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -16,6 +17,7 @@ namespace MrFixIt.Controllers
         // GET: /<controller>/
 
         //show job of the Login user has claimed
+        [Authorize]
         public IActionResult Index()
         {
             var thisWorker = db.Workers.Include(i =>i.Jobs).FirstOrDefault(i => i.UserName == User.Identity.Name);
@@ -30,7 +32,7 @@ namespace MrFixIt.Controllers
                 return RedirectToAction("Create");
             }
         }
-
+        [Authorize]
         public IActionResult Create()
         {
             return View();

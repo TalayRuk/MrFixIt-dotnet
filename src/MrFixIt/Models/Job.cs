@@ -20,6 +20,7 @@ namespace MrFixIt.Models
         //Don't Need to add WorkerId Column, to set the worker to jobs join table then run migration and database update b/c virtual already let migrations know to add workerId automatically to the job table
         //public int WorkerId { get; set; }
         //This is one-to-many relatioship, where this worker can have many jobs, and a job has one worker. 
+        
         public virtual Worker Worker { get; set; }
     }
-}
+} 
