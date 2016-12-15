@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using MrFixIt.Models;
 using Microsoft.EntityFrameworkCore;
 
+
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace MrFixIt.Controllers
@@ -31,18 +32,6 @@ namespace MrFixIt.Controllers
             }
         }
 
-        [HttpPost]
-        public IActionResult Index(Job job)
-        {
-            //var thisJob = job.Worker.jobId 
-            //thisJob = job.Worker.jobId
-            job.Worker = db.Workers.FirstOrDefault(i => i.UserName == User.Identity.Name);
-            db.Entry(job).State = EntityState.Modified;
-            db.SaveChanges();
-            //return RedirectToAction("Index");
-            return Json(job);
-        }
-
         public IActionResult Public()
         {
             //error here? since it's public shouldn't it show just a list of job but doesn't show worker .. need to delete create job from the view page 
@@ -61,13 +50,24 @@ namespace MrFixIt.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-        //assign to specific user! 
+
+        //Get Job Id 
         public IActionResult DisplayJob(int id)
         {
-            var DisplayJob = db.Jobs.FirstOrDefault(items => items.JobId == id);
-            return Json(DisplayJob);
+            var thisJob = db.Jobs.FirstOrDefault(items => items.JobId == id);
+            return Json(thisJob);
         }
 
-        
+        [HttpPost]
+        public IActionResult Index(Job job)
+        {
+
+            job.Worker = db.Workers.FirstOrDefault(i => i.UserName == User.Identity.Name);
+            db.Entry(job).State = EntityState.Modified;
+            db.SaveChanges();
+            //return RedirectToAction("Index");
+            return Json(job);
+        }
+
     }
 }

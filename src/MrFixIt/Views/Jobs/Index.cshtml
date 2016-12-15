@@ -1,53 +1,50 @@
-﻿<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <title>Job - Claim</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-    <script type="text/javascript">
-    @model MrFixIt.Models.Job
-    @*@using MrFixIt.Models.Job*@
-
+﻿@{
+}
+    
+    @model IEnumerable<MrFixIt.Models.Job>
+    
+   
+<script type="text/javascript">
     $(document).ready(function () {
 
         $('.display-job').click(function () {
             $.ajax({
-                url: '@Url.Action("DisplayJob")',
+                url: '@Url.Action("Index")',
                 type: 'GET',
+                //Says what type of data we expect back from the server
                 dataType: 'json',
-                //Do I need contnentType
+                //says what kind of data we are sending to the server
                 contentType: 'application/json',
                 success: function (result) {
-                var resultString = 'Id:' + result.id + '<br>Title: ' + result.title + '<br>Description: ' + result.description;
-                $('#resultDisplay-job').html(resultString);
+                    var resultString = 'Id:' + result.id + '<br>Title: ' + result.title + '<br>Description: ' + result.description;
+                    $('#resultDisplay-job').html(resultString);
 
                 }
-                });
-                });
+            });
+        });
 
-                $('.claim').submit(function () {
-                event.preventDefault();
-                $.ajax({
-                url: '@Url.Action("Claim")',
+        $('.claim').submit(function () {
+        event.preventDefault();
+            $.ajax({
+                url: '@Url.Action("Index")',
                 type: 'POST',
                 dataType: 'json',
                 data: $(this).serialize(),
                 success: function (result) {
-                var resultMsg = 'You have claim this job! <br> Id: ' + result.id + '<br>Title: ' + result.title + '<br>Description: ' + result.description;
-                $('#resultClaim').html(resultMsg);
+                    var resultMsg = 'You have claim this job! <br> Id: ' + result.id + '<br>Title: ' + result.title + '<br>Description: ' + result.description;
+                    $('#resultClaim').html(resultMsg);
                 }
-                });
-                });
+            });
+        });
+    });
+</script>
 
-                });
-    </script>
-</head>
-<body>
     <br />
-    <h2>Show Job</h2>
+    @*<h2>Show Job</h2>
     <form action="DisplayJob" class="display-job">
         <button type="submit">Show Job</button>
     </form>
-    <div id="resultJob"></div>
+    <div id="resultJob"></div>*@
 
     <h2>Would you like to do this job?</h2>
     <hr />
@@ -55,6 +52,7 @@
         <h3>Our Current Jobs</h3>
         @Html.ActionLink("Add a new job", "Create")
     </div>
+
     @foreach (var Job in Model)
     {
         <ul>
@@ -64,7 +62,7 @@
             </ul>
             @if (Job.Worker == null)
             {
-                <li class="btn">This job is unclaimed. @Html.ActionLink("Claim This Job", "Claim", new { @text = @Job.Title, id = Job.JobId })</li>
+                <li class="btn display-job">This job is unclaimed. @Html.ActionLink("Claim This Job", "DisplayJob", new { @text = @Job.Title, id = Job.JobId })</li>
             }
             else
             {
@@ -74,8 +72,6 @@
         </ul>
 
 
-                        <hr />
+    <hr />
     }
 
-</body>
-</html>
