@@ -24,17 +24,15 @@ namespace MrFixIt.Models
         public virtual Worker Worker { get; set; }
 
         //add job constructor 
-        public Job(string title, string description, bool completed, bool pending, bool active, int id = 0)
+        public Job() { }
+        public Job(string title, string description, int id = 0)
         {
             Title = title;
             Description = description;
-            Completed = completed;
-            Pending = pending;
-            Active = active;
             JobId = id;
         }
 
-        public Job() { }
+        
        
     }
 } 

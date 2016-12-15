@@ -60,7 +60,7 @@
             </ul>
             @if (Job.Worker == null)
             {
-                <li class="btn claim">This job is unclaimed. @Html.ActionLink("Claim This Job", "Cliam",new { @text = @Job.Title, id = Job.JobId })</li>
+                <li class="btn claim">This job is unclaimed. @Html.ActionLink("Claim This Job", "Claim", new { @text = @Job.Title, id = Job.JobId })</li>
                 <li class="claim-job"><span id="resultClaim"></span></li>
             }
             else
