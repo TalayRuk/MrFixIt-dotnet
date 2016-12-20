@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MrFixIt.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -25,14 +26,14 @@ namespace MrFixIt.Models
 
         //add job constructor 
         public Job() { }
-        public Job(string title, string description, int id = 0)
+        public Job(string title, string description, string worker, int id = 0)
         {
             Title = title;
             Description = description;
             JobId = id;
         }
 
-        
-       
+
+
     }
 } 

@@ -1,7 +1,9 @@
 ﻿@{
 }
     
-@model IEnumerable<MrFixIt.Models.Job>
+
+@*@using System.Security.Claims*@
+
 <br />  
 
 <h2>Would you like to do this job?</h2>
@@ -17,24 +19,26 @@
         <li>@Job.Title</li>
             
             <li>@Job.Description</li>
-            
+         
 
         @if (Job.Worker == null)
         {
             <li >This job is unclaimed. 
-                <span class="claim-job">@Html.ActionLink("Claim This Job", "Index", new { @id = @Job.JobId })</span>
-                <input type="hidden" value="@Html.DisplayFor( x => Job.JobId)" id="jobId2" />
-        </li>
-            <li class="result-claim"></li>
-            @*<li class="claim-job">
-                Click This New Link
                 
+                <form action="Claim"  class="claim-job">
+                    <input type="hidden" value="@Job.JobId" name="jobId" />
+                    @*Can't access worker name using Job.Worker.FirstName* User.Identity.Name get value of worker log in*@
+                    @*<input type="hidden" value="@User.Identity.Name" name="workerName" />*@
+                    <button type="submit">Claim</button>
+                </form>
+
+                <div class="result-claim"></div>
             </li>
-            <li class="theId">@Html.DisplayFor( x => Job.JobId)</li>
-            <li><span id="resultClaim"></span></li>*@
+
         }
         else
         {
+            //once claim is clicked this should replace it!
             <li class="btn">This Job is claimed by @Job.Worker.FirstName @Job.Worker.LastName</li>
 
         }
@@ -44,12 +48,3 @@
 <hr />
 }
 
-@*@using (Html.BeginForm())
-{
-    @Html.HiddenFor(model => model.JobId)
-    @Html.HiddenFor(model => model.Title)
-    @Html.HiddenFor(model => model.Description)
-
-    <h4>@Model.Title</h4>
-    <input type="submit" value="Claim This Job" />
-}*@
