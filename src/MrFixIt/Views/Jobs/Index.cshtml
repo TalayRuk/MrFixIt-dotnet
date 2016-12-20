@@ -2,8 +2,6 @@
 }
     
 
-@*@using System.Security.Claims*@
-
 <br />  
 
 <h2>Would you like to do this job?</h2>
@@ -27,8 +25,7 @@
                 
                 <form action="Claim"  class="claim-job">
                     <input type="hidden" value="@Job.JobId" name="jobId" />
-                    @*Can't access worker name using Job.Worker.FirstName* User.Identity.Name get value of worker log in*@
-                    @*<input type="hidden" value="@User.Identity.Name" name="workerName" />*@
+                    @*Only need to get Job.JobId then controller is code to insert workerId*@
                     <button type="button">Claim</button>
                 </form>
 

@@ -51,14 +51,6 @@ namespace MrFixIt.Controllers
             return RedirectToAction("Index");
         }
 
-        //public IActionResult Claim()
-        //{
-        //    return RedirectToAction("Index");
-        //}
-
-        //this still only take to claim page with correct json file instead of show up at the bottom of page!
-       
-        //[HttpPost]
         public IActionResult Claim(Job thisJob, int jobId)
            
         {

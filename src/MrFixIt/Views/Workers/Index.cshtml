@@ -7,21 +7,8 @@
 
 @if (User.Identity.IsAuthenticated)
 {
-
     <div class="text-center">
         <h4>Hello Worker @Model.FirstName @Model.LastName. You are Logged In</h4>
-        <h3>Your Current Jobs:</h3>
-        @foreach (var Job in Model.Jobs)
-        {
-            <h5>
-                @Job.Title | This job is @if (Job.Active == true)
-                { <span class="status">active</span> }
-                else
-                {
-                    <span class="status">inactive</span> }
-            </h5>
-
-        }
         @if (Model.Avaliable)
         {
             <h2>Please @Html.ActionLink("select a job", "Index", "Jobs").</h2>
@@ -30,5 +17,58 @@
         {
             <p>You are already assigned to a job.</p>
         }
+
+        <h3>Your Current Jobs:</h3>
+        @foreach (var Job in Model.Jobs)
+        {
+            @if (Job.Completed == false)
+            {
+                @if (Job.Active == true)
+                {
+                    <div class="compleatedHide">
+                        <strong>@Job.Title</strong> -- is <span class="status">active</span><br />
+                        <form action="Completed" class="completed-job">
+                            @*<input type="hidden" value="@Job.Title" class="Title-@Job.JobId" />*@
+                            <input type="hidden" value="@Job.JobId" class="ThisJobId" />
+
+                            <button type="button">Done</button>
+                        </form>
+                        <div class="result-completed"></div>
+                    </div>
+                    <hr />
+                }
+                else if (Job.Pending == false)
+                {
+                    <div class="activeHide">
+                        <strong>@Job.Title</strong> -- is <span class="status">inactive</span><br />
+                        <form action="Pending" class="pending-job">
+                            @*<input type="hidden" value="@Job.Title" class="Title-@Job.JobId" />*@
+                            <input type="hidden" value="@Job.JobId" class="ThisJobId" />
+
+                            <button type="button">Pending</button>
+                        </form>
+                        <div class="result-pending"></div>
+                    </div>
+                    <hr />
+                }
+                else
+                {
+                    <div class="pendingHide">
+                        <strong>@Job.Title</strong> -- is <span class="status">pending</span><br />
+                        <form action="Active" class="active-job">
+                            @*<input type="hidden" value="@Job.Title" class="Title-@Job.JobId" />*@
+                            <input type="hidden" value="@Job.JobId" class="ThisJobId" />
+
+                            <button type="button">Active</button>
+                        </form>
+                        <div class="result-active"></div>
+                    </div>
+                    <hr />
+                }
+            }
+        }
+
+
+
     </div>
 }
