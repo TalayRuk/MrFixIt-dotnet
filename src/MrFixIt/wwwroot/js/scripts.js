@@ -2,12 +2,12 @@
 
 $(document).ready(function () {
  
-    $('.claim-job').submit(function (event) {
-        event.preventDefault();
+    $('.claim-job').click(function () {
+        //event.preventDefault();
         
         //once button click - hide button
-        $('button').hide()
-        location.reload(true);
+        $('button').hide();
+        
         
         
         
@@ -36,6 +36,8 @@ $(document).ready(function () {
                 $(".result-claim").html(resultMsg);
             }
         });
+        //when moved reload out of all the functions, this let the function run first and only have to click once to reload
+        location.reload(true);
     });
 });
     
