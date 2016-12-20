@@ -11,6 +11,6 @@ h5 {
     color: orangered;
 }
 
-.important a{
-    color: darkred;
+.btn-warning {
+    visibility: hidden;
 }

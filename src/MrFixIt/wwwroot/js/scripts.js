@@ -36,7 +36,11 @@ $(document).ready(function () {
         location.reload(true);
     });
 
-    $('.pending-job').click(function () {
+    $('.active-job').submit(function (event) {
+        event.preventDefault();
+        $(".btn-primary").hide();
+        $(".status").hide();
+        $(".btn-warning").show();
         var jobId = $(this).children().val();
         console.log(jobId);
         console.log($(this).serialize());
@@ -47,9 +51,10 @@ $(document).ready(function () {
             dataType: 'json',
             contentType: 'application/json',
             data: $(this).serialize(),
-            url: '/Workers/Pending',
+            url: '/Workers/Active',
             success: function (result) {
-                $('.result-pending').html(result);
+                var reult1 = 'Job is in progress';
+                $('.result-active').html(result1);
             }
         });
     });

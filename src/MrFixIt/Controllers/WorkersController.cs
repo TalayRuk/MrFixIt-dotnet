@@ -47,7 +47,7 @@ namespace MrFixIt.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-        public IActionResult Pending(int jobId)
+        public IActionResult Active(int jobId)
         {
             var worker = db.Workers.Include(i => i.Jobs).FirstOrDefault(i => i.UserName == User.Identity.Name);
             foreach (var job in worker.Jobs)

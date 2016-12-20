@@ -37,29 +37,30 @@
                     </div>
                     <hr />
                 }
-                else if (Job.Pending == false)
+                else if (Job.Active == true && Job.Active == 1)
                 {
                     <div class="activeHide">
                         <strong>@Job.Title</strong> -- is <span class="status">inactive</span><br />
                         <form action="Pending" class="pending-job">
                             @*<input type="hidden" value="@Job.Title" class="Title-@Job.JobId" />*@
-                            <input type="hidden" value="@Job.JobId" class="ThisJobId" />
+                            <input type="hidden" value="@Job.JobId" name="jobId" />
 
-                            <button type="button">Pending</button>
+                            <button type="button" class="btn-warning">Pending</button>
                         </form>
                         <div class="result-pending"></div>
                     </div>
                     <hr />
                 }
-                else
+                else if (Job.Active == false)
                 {
                     <div class="pendingHide">
-                        <strong>@Job.Title</strong> -- is <span class="status">pending</span><br />
+                        <strong>Job: @Job.Title</strong> -- <span class="status">is inactive</span><br />
                         <form action="Active" class="active-job">
                             @*<input type="hidden" value="@Job.Title" class="Title-@Job.JobId" />*@
-                            <input type="hidden" value="@Job.JobId" class="ThisJobId" />
+                            <input type="hidden" value="@Job.JobId" name="jobId" />
 
-                            <button type="button">Active</button>
+                    <button type="submit" class="btn-primary">Active</button>
+                    <button type="button" class="btn-warning">Pending</button>
                         </form>
                         <div class="result-active"></div>
                     </div>
