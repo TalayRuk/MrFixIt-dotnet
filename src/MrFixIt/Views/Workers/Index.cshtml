@@ -29,7 +29,7 @@
                         <strong>@Job.Title</strong> -- is <span class="status">active</span><br />
                         <form action="Completed" class="completed-job">
                             @*<input type="hidden" value="@Job.Title" class="Title-@Job.JobId" />*@
-                            <input type="hidden" value="@Job.JobId" class="ThisJobId" />
+                            <input type="hidden" value="@Job.JobId" name="jobId" />
 
                             <button type="button">Done</button>
                         </form>
