@@ -40,7 +40,7 @@ $(document).ready(function () {
         var jobId = $(this).children().val();
         console.log(jobId);
         console.log($(this).serialize());
-        debugger;
+        //debugger;
 
         $.ajax({
             type: 'GET',
