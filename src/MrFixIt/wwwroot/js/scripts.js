@@ -40,7 +40,7 @@ $(document).ready(function () {
         event.preventDefault();
         $(".btn-primary").hide();
         $(".status").hide();
-        $(".btn-warning").show();
+        //$(".btn-warning").show();
         var jobId = $(this).children().val();
         console.log(jobId);
         console.log($(this).serialize());
@@ -53,9 +53,10 @@ $(document).ready(function () {
             data: $(this).serialize(),
             url: '/Workers/Active',
             success: function (result) {
-                var reult1 = 'Job is in progress';
+                var result1 = 'Job is in progress';
                 $('.result-active').html(result1);
             }
+             
         });
     });
 

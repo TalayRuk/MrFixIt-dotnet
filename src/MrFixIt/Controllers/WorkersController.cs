@@ -47,10 +47,10 @@ namespace MrFixIt.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-        public IActionResult Active(int jobId)
+        public IActionResult Active(Worker thisWorker, int jobId)
         {
-            var worker = db.Workers.Include(i => i.Jobs).FirstOrDefault(i => i.UserName == User.Identity.Name);
-            foreach (var job in worker.Jobs)
+            thisWorker = db.Workers.Include(i => i.Jobs).FirstOrDefault(i => i.UserName == User.Identity.Name);
+            foreach (var job in thisWorker.Jobs)
             {
                 if (job.JobId == jobId)
                 {
@@ -61,8 +61,9 @@ namespace MrFixIt.Controllers
                     job.Active = false;
                 }
             }
+            //db.Jobs.Add(status?);
             db.SaveChanges();
-            return Json(worker);
+            return Json(thisWorker); ;
         }
     }
 }

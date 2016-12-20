@@ -12,5 +12,6 @@ h5 {
 }
 
 .btn-warning {
-    visibility: hidden;
+    display: none;
 }
+
