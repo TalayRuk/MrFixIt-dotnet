@@ -4,10 +4,14 @@ $(document).ready(function () {
  
     $('.claim-job').submit(function (event) {
         event.preventDefault();
-        //once button click - hide button
-        $('button').hide();
         
-       //input #jobId2 is the siblings of .claim-job b/c span & input is a child of <li> parent 
+        //once button click - hide button
+        $('button').hide()
+        location.reload(true);
+        
+        
+        
+       //input name=jobId is the siblings of .claim-job b/c span & input is a child of <form> parent 
         var jobId = $(this).children().val();
         //var worker = $(this).siblings("#workerName").val();
         console.log(jobId);
