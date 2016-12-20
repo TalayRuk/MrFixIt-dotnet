@@ -4,6 +4,8 @@ $(document).ready(function () {
  
     $('.claim-job').submit(function (event) {
         event.preventDefault();
+        //once button click - hide button
+        $('button').hide();
         
        //input #jobId2 is the siblings of .claim-job b/c span & input is a child of <li> parent 
         var jobId = $(this).children().val();
@@ -25,9 +27,8 @@ $(document).ready(function () {
             url: '/Jobs/Claim',
             data: $(this).serialize(),
             success: function (result) {
-                var resultMsg = jobId;
-                console.log(resultMsg);
-                debugger;
+                var resultMsg = 'You have claim this Job';
+                
                 $(".result-claim").html(resultMsg);
             }
         });

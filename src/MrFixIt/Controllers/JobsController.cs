@@ -62,16 +62,14 @@ namespace MrFixIt.Controllers
         public IActionResult Claim(Job thisJob, int jobId)
            
         {
-            
-            
+            //grab jobId from Ajax call class claim-job & hidden input at index saying thisJob id same as jobId by declaring Job thisJob it knows that thisjob has the same properties as Job      
             thisJob = db.Jobs.FirstOrDefault(items => items.JobId == jobId);
+            //once grap jobId from Ajax call, go into worker & grap the id by using User.Identity.Name
             thisJob.Worker = db.Workers.FirstOrDefault(i => i.UserName == User.Identity.Name);
+            //add workerId then it went into the Worker table(join table) to add workerId to the job  
             db.Entry(thisJob).State = EntityState.Modified;
             /*db.Jobs.Add(job);*/
             db.SaveChanges();
-            //return RedirectToAction("Index");
-            //return Json(thisJob) or Json(claim) return the same thing :( 
-            Console.WriteLine(thisJob);
             return Json(thisJob);
             
 
