@@ -20,8 +20,8 @@ namespace MrFixIt.Controllers
         [Authorize]
         public IActionResult Index()
         {
-            var thisWorker = db.Workers.Include(i =>i.Jobs).FirstOrDefault(i => i.UserName == User.Identity.Name);
-            
+            var thisWorker = db.Workers.Include(i => i.Jobs).FirstOrDefault(i => i.UserName == User.Identity.Name);
+
             if (thisWorker != null)
             {
                 return View(thisWorker);
@@ -43,9 +43,27 @@ namespace MrFixIt.Controllers
         public IActionResult Create(Worker worker)
         {
             worker.UserName = User.Identity.Name;
-            db.Workers.Add(worker); 
+            db.Workers.Add(worker);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+        public IActionResult Pending(int jobId)
+        {
+            var worker = db.Workers.Include(i => i.Jobs).FirstOrDefault(i => i.UserName == User.Identity.Name);
+            foreach (var job in worker.Jobs)
+            {
+                if (job.JobId == jobId)
+                {
+                    job.Active = true;
+                }
+                else
+                {
+                    job.Active = false;
+                }
+            }
+            db.SaveChanges();
+            return Json(worker);
+        }
     }
 }
+
