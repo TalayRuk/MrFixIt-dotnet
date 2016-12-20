@@ -51,35 +51,33 @@ namespace MrFixIt.Controllers
             return RedirectToAction("Index");
         }
 
-        //Get Job Id 
-        //public IActionResult DisplayJob(int id)
-        //{
-        //    var thisJob = db.Jobs.FirstOrDefault(items => items.JobId == id);
-        //    return Json(thisJob);
-        //}
+        public IActionResult Claim(int id)
+        {
+            var thisItem = db.Jobs.FirstOrDefault(items => items.JobId == id);
+            return View(thisItem);
+        }
 
         //[HttpPost]
-        //public IActionResult Index(Job job)
+        //public IActionResult Claim(Job job)
         //{
-
         //    job.Worker = db.Workers.FirstOrDefault(i => i.UserName == User.Identity.Name);
         //    db.Entry(job).State = EntityState.Modified;
         //    db.SaveChanges();
-        //    //return RedirectToAction("Index");
-        //    return Json(job);
+        //    return RedirectToAction("Index");
         //}
 
         //this still only take to claim page with correct json file instead of show up at the bottom of page!
-        public IActionResult Claim(string title, string description, int id)
+        [HttpPost]
+        public IActionResult Claim(Job job, int id)
         {
-            Job claim = new Job(title, description, id);
+            //Job claim = new Job(title, description, id);
             var thisJob = db.Jobs.FirstOrDefault(items => items.JobId == id);
-            thisJob.Worker = db.Workers.FirstOrDefault(i => i.UserName == User.Identity.Name);
+            job.Worker = db.Workers.FirstOrDefault(i => i.UserName == User.Identity.Name);
             db.Entry(thisJob).State = EntityState.Modified;
             db.SaveChanges();
             //return RedirectToAction("Index");
             //return Json(thisJob) or Json(claim) return the same thing :( 
-            return Json(claim);
+            return Json(job);
         }
 
     }

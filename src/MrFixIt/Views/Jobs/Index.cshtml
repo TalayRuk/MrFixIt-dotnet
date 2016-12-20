@@ -1,76 +1,55 @@
 ﻿@{
 }
     
-    @model IEnumerable<MrFixIt.Models.Job>
-    
-   
-<script type="text/javascript">
-    $(document).ready(function () {
+@model IEnumerable<MrFixIt.Models.Job>
+<br />  
 
-        $('.claim-job').submit(function () {
-            event.preventDefault();
-            $.ajax({
+<h2>Would you like to do this job?</h2>
+<hr />
+<div class="text-center">
+    <h3>Our Current Jobs</h3>
+    @Html.ActionLink("Add a new job", "Create")
+</div>
 
-                type: 'GET',
-                //Says what type of data we expect back from the server
-                dataType: 'json',
-                //says what kind of data we are sending to the server
-                contentType: 'application/json',
-                url: '@Url.Action("Claim")',
-                data: $(this).serialize(),
-                success: function (result) {
-                    var resultMsg = 'You have claim this job! <br> Id: ' + result.id + '<br>Title: ' + result.title + '<br>Description: ' + result.description;
-                    $('#resultClaim').html(resultMsg);
-                }
-            });
-        });
+@foreach (var Job in Model)
+{
+    <ul>
+        <li>@Job.Title</li>
+            
+            <li>@Job.Description</li>
+            
 
-        @*$('.claim-job').submit(function () {
-        event.preventDefault();
-            $.ajax({
-                url: '@Url.Action("Index")',
-                type: 'POST',
-                dataType: 'json',
-                data: $(this).serialize(),
-                success: function (result) {
-                    var resultMsg = 'You have claim this job! <br> Id: ' + result.id + '<br>Title: ' + result.title + '<br>Description: ' + result.description;
-                    $('#resultClaim').html(resultMsg);
-                }
-            });
-        });*@
-    });
-</script>
+        @if (Job.Worker == null)
+        {
+            <li >This job is unclaimed. 
+                <span class="claim-job">@Html.ActionLink("Claim This Job", "Index", new { @id = @Job.JobId })</span>
+                <input type="hidden" value="@Html.DisplayFor( x => Job.JobId)" id="jobId2" />
+        </li>
+            <li class="result-claim"></li>
+            @*<li class="claim-job">
+                Click This New Link
+                
+            </li>
+            <li class="theId">@Html.DisplayFor( x => Job.JobId)</li>
+            <li><span id="resultClaim"></span></li>*@
+        }
+        else
+        {
+            <li class="btn">This Job is claimed by @Job.Worker.FirstName @Job.Worker.LastName</li>
 
-    <br />
-    
-
-    <h2>Would you like to do this job?</h2>
-    <hr />
-    <div class="text-center">
-        <h3>Our Current Jobs</h3>
-        @Html.ActionLink("Add a new job", "Create")
-    </div>
-
-    @foreach (var Job in Model)
-    {
-        <ul>
-            <li>@Job.Title</li>
-            <ul>
-                <li>@Job.Description</li>
-            </ul>
-            @if (Job.Worker == null)
-            {
-                <li class="btn claim">This job is unclaimed. @Html.ActionLink("Claim This Job", "Claim", new { @text = @Job.Title, id = Job.JobId })</li>
-                <li class="claim-job"><span id="resultClaim"></span></li>
-            }
-            else
-            {
-                <li class="btn">This Job is claimed by @Job.Worker.FirstName @Job.Worker.LastName</li>
-
-            }
-        </ul>
+        }
+    </ul>
 
 
-    <hr />
-    }
+<hr />
+}
 
+@*@using (Html.BeginForm())
+{
+    @Html.HiddenFor(model => model.JobId)
+    @Html.HiddenFor(model => model.Title)
+    @Html.HiddenFor(model => model.Description)
+
+    <h4>@Model.Title</h4>
+    <input type="submit" value="Claim This Job" />
+}*@
